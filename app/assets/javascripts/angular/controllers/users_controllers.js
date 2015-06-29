@@ -1,4 +1,24 @@
 var myApp = angular.module('myapplication', ['ngRoute', 'ngResource']);
+myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+    $routeProvider.when('/users',{
+      templateUrl: '/templates/users/index.html',
+      controller: 'UserListCtr'
+    });
+    $routeProvider.when('/users/new', {
+      templateUrl: '/templates/users/new.html',
+      controller: 'UserAddCtr'
+    });
+    $routeProvider.when('/users/:id/edit', {
+      templateUrl: '/templates/users/edit.html',
+      controller: "UserUpdateCtr"
+    });
+    $routeProvider.otherwise({
+      redirectTo: '/users'
+    });
+  }
+]);
+
+
 
 myApp.factory('Users', ['$resource',function($resource){
   return $resource('/users.json', {},{
@@ -63,21 +83,3 @@ myApp.controller("UserAddCtr", ['$scope', '$resource', 'Users', '$location', fun
 
 
 
-myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-    $routeProvider.when('/users',{
-      templateUrl: '/templates/users/index.html',
-      controller: 'UserListCtr'
-    });
-    $routeProvider.when('/users/new', {
-      templateUrl: '/templates/users/new.html',
-      controller: 'UserAddCtr'
-    });
-    $routeProvider.when('/users/:id/edit', {
-      templateUrl: '/templates/users/edit.html',
-      controller: "UserUpdateCtr"
-    });
-    $routeProvider.otherwise({
-      redirectTo: '/users'
-    });
-  }
-]);
