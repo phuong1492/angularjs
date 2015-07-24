@@ -1,7 +1,14 @@
-<div class="col-md-10">
-    <form class="tab-pane active form-horizontal" id="first" name="userForm" novalidate ng-submit="update()">
-        <h3 class="block">Edit user</h3>
-        <div ng-include src="'/templates/users/_form.html'"></div>
-    </form>
+<div ng-controller="ShowUserCtr">
+  <form ng-submit="user.createUser()" novalidate>
+    First Name:<br>
+    <input type="text" ng-model="user.firstName"><br>
+    Last Name:<br>
+    <input type="text" ng-model="user.lastName">
+    </br>
+    Email:<br>
+    <input type="text" ng-model="user.email">
+    <br><br>
+    <input type="submit" value="Submit Form">
+    <button ng-click="user.reset()">RESET</button>
+  </form>
 </div>
-

@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   end
 
   def create
+#binding.pry
     @user = User.new(user_params)
     if @user.save
       render json: @user.as_json, status: :ok
@@ -24,6 +25,7 @@ class UsersController < ApplicationController
   end
 
   def update
+  binding.pry
     if @user.update_attributes(user_params)
       render json: @user.as_json, status: :ok
     else
@@ -43,6 +45,7 @@ class UsersController < ApplicationController
   end
 
   def get_user
+#binding.pry
     @user = User.find(params[:id])
     render json: {status: :not_found} unless @user
   end

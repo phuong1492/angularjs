@@ -10,7 +10,7 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     });
     $routeProvider.when('/users/:id/edit', {
       templateUrl: '/templates/users/edit.html',
-      controller: "UserUpdateCtr"
+      controller: "ShowUserCtr"
     });
     $routeProvider.otherwise({
       redirectTo: '/users'
@@ -18,12 +18,12 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
   }
 ]);
 
-
-
 myApp.factory('Users', ['$resource',function($resource){
-  return $resource('/users.json', {},{
-    query: { method: 'GET', isArray: true },
-         create: { method: 'POST' }
+  return $resource('/users.json', {},
+    {
+    query: {
+      method: 'GET', isArray: true },
+      create: { method: 'POST' }
   })
 }]);
 
@@ -35,15 +35,18 @@ myApp.factory('User', ['$resource', function($resource){
   });
 }]);
 
-myApp.controller("UserListCtr", ['$scope', '$http', '$resource', 'Users', 'User', '$location', function($scope, $http, $resource, Users, User, $location) {
-  $scope.users = Users.query();
+myApp.controller("UserListCtr", ['$scope', '$http', '$location', function($scope, $http, $location) {
+  $http.get("/users.json").
+      success(function(data, status, headers, config) {
+        $scope.users = data
+      }).
+      error(function(data, status, headers, config) {
+        alert("failure");
+      });
 }]);
 
 
-
-
 myApp.controller("UserListCtr", ['$scope', '$http', '$resource', 'Users', 'User', '$location', function($scope, $http, $resource, Users, User, $location) {
-
   $scope.users = Users.query();
 
   $scope.deleteUser = function (userId) {
@@ -56,30 +59,32 @@ myApp.controller("UserListCtr", ['$scope', '$http', '$resource', 'Users', 'User'
   };
 }]);
 
-myApp.controller("UserUpdateCtr", ['$scope', '$resource', 'User', '$location', '$routeParams', function($scope, $resource, User, $location, $routeParams) {
-  $scope.user = User.get({id: $routeParams.id})
-  $scope.update = function(){
-    if ($scope.userForm.$valid){
-      User.update({id: $scope.user.id},{user: $scope.user},function(){
-        $location.path('/');
-      }, function(error) {
-        console.log(error)
+
+myApp.controller("ShowUserCtr", ['$scope', '$location', '$routeParams', '$http', function($scope, $location, $routeParams, $http) {
+  var id = $routeParams.id
+  $http.get('/users/'+ id + ".json").
+      success(function(data, status, headers, config) {
+        $scope.user = data
+      }).
+      error(function(data, status, headers, config) {
+        alert("failure");
       });
-    }
-  };
 }]);
 
-myApp.controller("UserAddCtr", ['$scope', '$resource', 'Users', '$location', function($scope, $resource, Users, $location) {
-  $scope.save = function () {
-    if ($scope.userForm.$valid){
-      Users.create({user: $scope.user}, function(){
-        $location.path('/');
-      }, function(error){
-        console.log(error)
+
+myApp.controller("UserAddCtr", ['$scope', '$resource', '$location', '$http', function($scope, $resource, $location, $http) {
+   $scope.user = {};
+   $scope.user.firstName = "first"
+
+  $scope.user.createUser = function () {
+    var user = {first_name: $scope.user.firstName, last_name: $scope.user.lastName, email: $scope.user.email}
+    var responsePromise = $http.post('/users', {user: user}).
+      success(function(data, status, headers, config) {
+        $location.path("/");
+      }).
+      error(function(data, status, headers, config) {
+        alert("failure");
       });
-    }
   }
 }]);
-
-
 
