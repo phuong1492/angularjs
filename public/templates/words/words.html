@@ -1,0 +1,15 @@
+<a ui-sref="newWord" class="btn-primary btn-lg nodecoration">Add New Word</a>
+
+<table class="table wordtable">
+  <tr>
+    <td><h3>All Words</h3></td>
+    <td></td>
+  </tr>
+  <tr ng-repeat="word in words">
+    <td>{{word.title}}</td>
+    <td>
+      <a class="btn btn-primary" ui-sref="viewWord({id:word._id})">View</a>
+      <a class="btn btn-danger"  ng-click="deleteWord(word)">Delete</a>
+    </td>
+  </tr>
+</table>

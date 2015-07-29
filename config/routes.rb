@@ -17,6 +17,11 @@ Angularjs::Application.routes.draw do
 
   # Example resource route with options:
   resources :users
+  namespace :api do
+    namespace :v1 do
+      resources :words
+    end
+  end
   #   resources :products do
   #     member do
   #       get 'short'
@@ -41,7 +46,7 @@ Angularjs::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

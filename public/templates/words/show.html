@@ -1,0 +1,25 @@
+<table class="table wordtable">
+  <tr>
+    <td><h3>Details for {{word.content}}</h3></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Content</td>
+    <td>{{word.content}}</td>
+  </tr>
+  <tr>
+    <td>Lession</td>
+    <td>{{word.lession_id}}</td>
+  </tr>
+  <tr>
+    <td>Description</td>
+    <td>{{word.description}}</td>
+  </tr>
+  <tr>
+    <td>Word type</td>
+    <td>{{word.word_type}}</td>
+  </tr>
+</table>
+<div>
+  <a class="btn btn-primary" ui-sref="editWord({id:word._id})">Edit</a>
+</div>

@@ -9,7 +9,7 @@ gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 gem 'angularjs-rails'
-gem 'angular-ui-bootstrap-rails' #for bootstrap UI 
+gem 'angular-ui-bootstrap-rails' #for bootstrap UI
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
@@ -49,3 +49,12 @@ gem 'pry'
 
 gem 'pry-byebug'
 
+group :assets do
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  # gem 'therubyracer'
+
+end
+gem 'twitter-bootstrap-rails'
+gem "therubyracer"
+gem "less-rails"
